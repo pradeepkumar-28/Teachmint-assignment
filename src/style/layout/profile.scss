@@ -1,0 +1,70 @@
+.Container {
+    .loading_spiner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .profile_container {
+        .TimeZone_container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .right_action {
+                display: flex;
+                align-items: center;
+                width: 400px;
+                justify-content: space-between;
+            }
+
+            .btn {
+                @include button
+            }
+        }
+    }
+
+    .profile_content {
+        margin-top: 80px;
+        text-align: center
+    }
+
+
+
+    .ProfileContainerList {
+        margin-top: 32px;
+        background-color: #F9FAFB;
+        height: 100px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left_Action,
+        .right_Action {
+            text-align: start;
+            margin-right: 32px;
+            h5,
+            h6 {
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 28px;
+                color: $secondary-color;
+            }
+        }
+
+        .left_Action {
+            margin-left: 32px;
+        }
+    }
+
+    .Card_container {
+        margin-top: 42px;
+        // display: flex;
+        // flex-wrap: wrap;
+        // gap: 16px;
+    }
+}

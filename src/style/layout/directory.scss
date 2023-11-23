@@ -1,0 +1,100 @@
+/* Directory container */
+.Container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+
+    .Directory_Content {
+        text-align: center;
+        margin-bottom: 20px;
+
+        h1 {
+            @include text;
+            font-family: $primary-font !important;
+        }
+
+        .directoryList_conatiner {
+            margin-top: 62px;
+        }
+
+        .DirectoryList_conntent {
+            margin-top: 20px;
+            background-color: $bg-color;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            height: 64px;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            .left_Action {
+                margin-left: 10px;
+
+                h1 {
+                    @include text;
+                    font-size: 16px;
+                    color: $secondary-color;
+                    font-weight: 400;
+                }
+            }
+
+            .right_Action {
+                margin-right: 8px;
+                background-color: $primary-color;
+                height: 50px;
+                width: 120px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                h6 {
+                    @include text;
+                    color: $bg-color;
+                    font-size: 16px;
+                    font-weight: 300;
+
+
+                }
+            }
+
+        }
+    }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .Directory_Content h1 {
+        font-size: 28px;
+    }
+
+    .DirectoryList_conntent {
+        padding: 10px 15px;
+    }
+
+    .DirectoryList_title {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Directory_Container {
+        padding: 10px;
+    }
+
+    .Directory_Content h1 {
+        font-size: 24px;
+    }
+
+    .DirectoryList_conntent {
+        padding: 10px;
+    }
+
+    .DirectoryList_title {
+        font-size: 12px;
+    }
+}
