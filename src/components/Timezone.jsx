@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +15,11 @@ function Timezone({
   const [isClockRunning, setIsClockRunning] = useState(true);
   const [pausedTime, setPausedTime] = useState(null);
   const [pausedDuration, setPausedDuration] = useState(0);
+  const [isTimeStopped, setIsTimeStopped] = useState(false);
 
   useEffect(() => {
     let interval;
-    if (isClockRunning) {
+    if (isClockRunning && !isTimeStopped) {
       interval = setInterval(() => {
         const currentTimeInUserTimezone = moment()
           .tz(timezone)
@@ -30,9 +29,10 @@ function Timezone({
     }
 
     return () => clearInterval(interval);
-  }, [timezone, isClockRunning]);
+  }, [timezone, isClockRunning, isTimeStopped]);
 
   const toggleClock = () => {
+    setIsClockRunning(!isClockRunning);
     if (!isClockRunning) {
       setPausedTime(clockTime);
     } else {
@@ -40,39 +40,42 @@ function Timezone({
         moment(pausedTime, "HH:mm:ss"),
         "seconds"
       );
+      console.log("pausedDurationInSeconds", pausedDurationInSeconds);
       setPausedDuration(pausedDurationInSeconds);
     }
-    setIsClockRunning(!isClockRunning);
+    setIsTimeStopped(!isClockRunning);
   };
 
   useEffect(() => {
     let interval;
     if (!isClockRunning && pausedTime !== null) {
+      console.log("render 2");
       interval = setInterval(() => {
         const resumedTime = moment()
-          .tz(timezone)
           .subtract(pausedDuration, "seconds")
           .format("HH:mm:ss");
         setClockTime(resumedTime);
+        console.log("resumedTime", resumedTime);
       }, 1000);
     } else {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [timezone, isClockRunning, pausedTime, pausedDuration]);
+  }, [isClockRunning, pausedTime, pausedDuration]);
 
   const onBackButtonClickHandler = () => {
     navigate("/");
   };
 
   const onTimeZoneChanged = (e, value) => {
-    setClockTime("00:00:00"); // Reset clock time when timezone changes
-    setIsClockRunning(true); // Start the clock when timezone changes
-    setPausedTime(null); // Reset paused time
-    setPausedDuration(0); // Reset paused duration
     onDropdownSelectHandler(e, value);
   };
+
+  useEffect(() => {
+    const currentTimeInUserTimezone = moment().tz(timezone).format("HH:mm:ss");
+    setClockTime(currentTimeInUserTimezone);
+  }, [timezone]);
 
   return (
     <div className="TimeZone_container">
@@ -81,7 +84,7 @@ function Timezone({
           className="btn"
           color="primary"
           variant="contained"
-          onClick={onBackButtonClickHandler}
+          onClick={() => onBackButtonClickHandler()}
         >
           Back
         </Button>
