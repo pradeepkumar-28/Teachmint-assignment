@@ -32,6 +32,7 @@ function Timezone({
   }, [timezone, isClockRunning, isTimeStopped]);
 
   const toggleClock = () => {
+    setIsTimeStopped(!isClockRunning);
     setIsClockRunning(!isClockRunning);
     if (!isClockRunning) {
       setPausedTime(clockTime);
@@ -43,7 +44,6 @@ function Timezone({
       console.log("pausedDurationInSeconds", pausedDurationInSeconds);
       setPausedDuration(pausedDurationInSeconds);
     }
-    setIsTimeStopped(!isClockRunning);
   };
 
   useEffect(() => {
