@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +22,7 @@ function Timezone({
   useEffect(() => {
     let interval;
     if (isClockRunning && !isTimeStopped) {
+      console.log("tenta render 1");
       interval = setInterval(() => {
         const currentTimeInUserTimezone = moment()
           .tz(timezone)
@@ -49,7 +52,7 @@ function Timezone({
   useEffect(() => {
     let interval;
     if (!isClockRunning && pausedTime !== null) {
-      console.log("render 2");
+      console.log("tenta render 2");
       interval = setInterval(() => {
         const resumedTime = moment()
           .subtract(pausedDuration, "seconds")
@@ -70,12 +73,11 @@ function Timezone({
 
   const onTimeZoneChanged = (e, value) => {
     onDropdownSelectHandler(e, value);
+    setIsTimeStopped(false);
+    setIsClockRunning(true);
+    setPausedTime(null);
+    // setClockTime("00:00:00");
   };
-
-  useEffect(() => {
-    const currentTimeInUserTimezone = moment().tz(timezone).format("HH:mm:ss");
-    setClockTime(currentTimeInUserTimezone);
-  }, [timezone]);
 
   return (
     <div className="TimeZone_container">
@@ -103,7 +105,7 @@ function Timezone({
           onClick={toggleClock}
           className="btn"
         >
-          {isClockRunning ? "Pause" : "Start"}
+          {isTimeStopped ? "Start" : "Pause"}
         </Button>
       </div>
     </div>
