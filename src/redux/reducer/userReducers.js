@@ -6,6 +6,7 @@ import {
   FETCH_USERINFO_LOADING_END,
   FETCH_ALL_COUNTRY_SUCCESS,
   FETCH_COUNTRY_TIMEZONE_SUCCESS,
+  FETCH_USER_INF,
 } from "../actions/userActions";
 
 const initialState = {
@@ -16,9 +17,11 @@ const initialState = {
   countryTimeZone: {},
   isInfoLoad: false,
   userInfoLoad: false,
+  userInfo: [],
 };
 
 const userReducer = (state = initialState, action) => {
+  console.log("test", action.payload);
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
       return {
@@ -30,6 +33,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         singleUserData: action.payload,
       };
+
     case FETCH_ALLPOSTS_SUCCESS:
       return {
         ...state,
@@ -55,6 +59,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         isInfoLoad: false,
+      };
+    case "USER_INFO":
+      return {
+        ...state,
+        userInfo: action.payload,
       };
     default:
       return state;

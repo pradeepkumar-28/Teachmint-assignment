@@ -38,7 +38,7 @@ function Directory() {
     }
     return postCounts;
   }
-
+ 
   const userPostCounts = getUserPostCounts(AllPost);
 
   return (

@@ -8,6 +8,8 @@ export const FETCH_USERINFO_LOADING_END = "FETCH_USERINFO_LOADING_END";
 export const FETCH_ALL_COUNTRY_SUCCESS = "FETCH_ALL_COUNTRY_SUCCESS";
 export const FETCH_COUNTRY_TIMEZONE_SUCCESS = "FETCH_COUNTRY_TIMEZONE_SUCCESS";
 
+export const FETCH_USER_INF = "FETCH_USER_INF";
+
 export const fetchUsersSuccess = (users) => ({
   type: FETCH_USERS_SUCCESS,
   payload: users,
@@ -31,6 +33,11 @@ export const fetchAllCountrySuccess = (posts) => ({
 export const fetchCountryTimeZoneSuccess = (posts) => ({
   type: FETCH_COUNTRY_TIMEZONE_SUCCESS,
   payload: posts,
+});
+
+export const getUserInfoSucess = (data) => ({
+  type: FETCH_USER_INF,
+  payload: data,
 });
 
 export const fetchUsers = () => async (dispatch) => {
@@ -84,6 +91,22 @@ export const fetchCountryTimeZoneCountry = (country) => async (dispatch) => {
       `http://worldtimeapi.org/api/timezone/${country}`
     );
     dispatch(fetchCountryTimeZoneSuccess(response.data));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
+
+//https://dummy.restapiexample.com/api/v1/employees
+
+export const getUserData = () => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `https://dummy.restapiexample.com/api/v1/employees`
+    );
+    dispatch({
+      type: "USER_INFO",
+      payload: response.data.data,
+    });
   } catch (error) {
     console.error("Error fetching posts:", error);
   }

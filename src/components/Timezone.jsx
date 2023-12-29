@@ -13,7 +13,9 @@ function Timezone({
   onDropdownSelectHandler,
 }) {
   const navigate = useNavigate();
+
   const [clockTime, setClockTime] = useState("00:00:00");
+  
   const [isClockRunning, setIsClockRunning] = useState(true);
   const [pausedTime, setPausedTime] = useState(null);
   const [pausedDuration, setPausedDuration] = useState(0);
