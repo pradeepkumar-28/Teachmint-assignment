@@ -9,7 +9,7 @@ import UserInfo from "./UserInfo";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Provider store={store}>
-      <UserInfo />
+      <App />
     </Provider>
   </BrowserRouter>
 );
